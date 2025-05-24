@@ -1,6 +1,11 @@
 version: '3'
 
 tasks:
+  default:
+    desc: Run full development flow
+    cmds:
+      - task dev
+
   lint:
     desc: Run ESLint
     cmds:
@@ -15,6 +20,11 @@ tasks:
     desc: Run Playwright E2E tests
     cmds:
       - npm run e2e
+
+  e2e:headless:
+    desc: Run Playwright E2E tests in headless mode
+    cmds:
+      - npx playwright test --headed false
 
   scan:
     desc: Run Trivy vulnerability scan
@@ -35,6 +45,12 @@ tasks:
     desc: Reset DB (rollback all, migrate, seed)
     cmds:
       - npx knex migrate:rollback --all
+      - npx knex migrate:latest
+      - npx knex seed:run
+
+  db:setup:
+    desc: Run initial DB setup (migrate + seed)
+    cmds:
       - npx knex migrate:latest
       - npx knex seed:run
 

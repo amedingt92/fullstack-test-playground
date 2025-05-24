@@ -2,28 +2,51 @@ version: '3'
 
 tasks:
   lint:
+    desc: Run ESLint
     cmds:
       - npm run lint
+
   test:
+    desc: Run Jest unit and integration tests
     cmds:
       - npm test
+
   e2e:
+    desc: Run Playwright E2E tests
     cmds:
       - npm run e2e
+
   scan:
+    desc: Run Trivy vulnerability scan
     cmds:
-      - npm run scan
+      - trivy fs --scanners vuln ./
+
   db:migrate:
+    desc: Run latest DB migrations
     cmds:
       - npx knex migrate:latest
+
   db:seed:
+    desc: Run DB seeds
     cmds:
       - npx knex seed:run
+
   db:reset:
+    desc: Reset DB (rollback all, migrate, seed)
     cmds:
       - npx knex migrate:rollback --all
       - npx knex migrate:latest
       - npx knex seed:run
+
   start:
+    desc: Start the server
     cmds:
       - npm start
+
+  dev:
+    desc: Run lint, test, scan, and start server
+    cmds:
+      - task lint
+      - task test
+      - task scan
+      - task start

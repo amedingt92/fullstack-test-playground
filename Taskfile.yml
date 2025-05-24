@@ -1,0 +1,29 @@
+version: '3'
+
+tasks:
+  lint:
+    cmds:
+      - npm run lint
+  test:
+    cmds:
+      - npm test
+  e2e:
+    cmds:
+      - npm run e2e
+  scan:
+    cmds:
+      - npm run scan
+  db:migrate:
+    cmds:
+      - npx knex migrate:latest
+  db:seed:
+    cmds:
+      - npx knex seed:run
+  db:reset:
+    cmds:
+      - npx knex migrate:rollback --all
+      - npx knex migrate:latest
+      - npx knex seed:run
+  start:
+    cmds:
+      - npm start

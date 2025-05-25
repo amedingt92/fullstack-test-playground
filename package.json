@@ -13,7 +13,10 @@
     "test:integration": "jest tests/integration",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
-    "test:e2e:report": "playwright show-report"
+    "test:e2e:report": "playwright show-report",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write .",
+    "scan": "npm audit --audit-level=moderate"
   },
   "repository": {
     "type": "git",

@@ -1,32 +1,46 @@
 
 # Fullstack Test Playground
 
-A comprehensive Node.js practice project covering unit, integration, and E2E testing. Built with Express.js, SQLite, Swagger, Jest, Supertest, Playwright, Trivy, and a Taskfile-based local workflow.
+A comprehensive full-stack Node.js practice project with:
+✅ Express.js backend API  
+✅ SQLite + Knex.js database  
+✅ Swagger/OpenAPI documentation  
+✅ Unit, integration, and E2E tests (Jest, Supertest, Playwright)  
+✅ Prettier, ESLint, Husky, and Trivy for formatting, linting, git hooks, and security  
+✅ Page Object Model (POM) for scalable E2E testing
 
 ---
 
 ## 🚀 Features
-- Express.js backend API
-- SQLite database with Knex.js migrations and seeds
-- Swagger/OpenAPI API documentation
-- Jest for unit/integration tests
-- Supertest for API testing
-- Playwright for E2E tests
-- Trivy for vulnerability scanning
-- Husky for pre-commit checks
-- Taskfile for local task automation
-- Mermaid.js diagrams for architecture and workflow
+- **Backend**: Express.js REST API with CRUD operations for user management.
+- **Database**: SQLite + Knex.js with migrations and seeds.
+- **Frontend**: Simple UI with Login, Dashboard, and User Management pages.
+- **Validation**: Both frontend checks and backend validation of data.
+- **Swagger**: Auto-generated API docs via Swagger/OpenAPI.
+- **Testing**:  
+  - Jest unit tests for validation logic.  
+  - Supertest-powered integration tests for API endpoints.  
+  - Playwright E2E tests covering full user flows with POM.  
+- **Tooling**:  
+  - Prettier + ESLint for code quality.  
+  - Husky pre-commit hooks.  
+  - Trivy vulnerability scanner.  
 
 ---
 
 ## 📂 Project Structure
-```plaintext
-src/           # App code (controllers, services, models, routes)
-db/            # Database migrations and seeds
-tests/         # Unit, integration, and E2E tests
-docs/          # Mermaid diagrams and Swagger info
-.vscode/       # Editor config
-.husky/        # Git hooks
+```
+📦 fullstack-test-playground
+├── 📁 db/                 # Migrations and seeds
+├── 📁 docs/               # API docs and diagrams
+├── 📁 public/             # Frontend static files (HTML, CSS, JS)
+├── 📁 src/                # Express app (routes, controllers, services)
+├── 📁 tests/              # Unit, integration, and E2E tests
+├── 📄 jest.config.js      # Jest configuration
+├── 📄 knexfile.js         # Knex configuration
+├── 📄 package.json        # Dependencies and scripts
+├── 📄 README.md           # Project documentation
+└── 📄 server.js           # Server entry point
 ```
 
 ---
@@ -37,11 +51,21 @@ graph LR
     User -->|HTTP| API[Express Server]
     API -->|DB Queries| SQLite[(SQLite DB)]
     API -->|Response| User
+    API -->|Swagger Docs| SwaggerUI
+    User -->|UI| Frontend[HTML/CSS/JS]
 ```
 
 ---
 
-## 🧪 Testing Flow
+## 🧪 Testing Overview
+- **Unit Tests**:  
+  Located in `tests/unit/`, cover validation logic.
+- **Integration Tests**:  
+  Located in `tests/integration/`, use Supertest to hit API endpoints.
+- **E2E Tests**:  
+  Located in `tests/e2e/`, use Playwright with Page Object Models.
+
+### Testing Flow
 ```mermaid
 graph TD
     Unit[Unit Tests] --> Integration[Integration Tests]
@@ -51,7 +75,7 @@ graph TD
 ---
 
 ## 📦 Setup Instructions
-1️⃣ Clone the repo:
+1️⃣ Clone the repository:
 ```bash
 git clone https://github.com/yourusername/fullstack-test-playground.git
 cd fullstack-test-playground
@@ -62,30 +86,80 @@ cd fullstack-test-playground
 npm install
 ```
 
-3️⃣ Install Trivy:
+3️⃣ (Optional) Install Playwright browsers:
 ```bash
-brew install aquasecurity/trivy/trivy
-```
-
-4️⃣ Install Task (local task runner):
-```bash
-brew install go-task/tap/go-task
+npx playwright install
 ```
 
 ---
 
-## 🛠️ Usage
-- **Run lint**: `task lint`
-- **Run unit tests**: `task test`
-- **Run E2E tests**: `task e2e`
-- **Scan for vulnerabilities**: `task scan`
-- **Run DB migrations**: `task db:migrate`
-- **Seed the DB**: `task db:seed`
-- **Reset the DB**: `task db:reset`
-- **Start server**: `task start`
-- **Run full dev flow**: `task dev`
+## 🏃 Usage
+### Start the server:
+```bash
+npm start
+```
+View API docs: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)  
+View UI: [http://localhost:3000](http://localhost:3000)
+
+### Run Tests:
+- **All Jest tests (unit + integration)**:  
+```bash
+npm test
+```
+- **Unit tests only**:  
+```bash
+npm run test:unit
+```
+- **Integration tests only**:  
+```bash
+npm run test:integration
+```
+- **Playwright E2E tests (headless)**:  
+```bash
+npm run test:e2e
+```
+- **Playwright E2E tests (headed)**:  
+```bash
+npm run test:e2e:headed
+```
+- **Show Playwright test report**:  
+```bash
+npm run test:e2e:report
+```
+
+### (Optional) Format & Lint:
+```bash
+npx prettier --write .
+npx eslint .
+```
 
 ---
 
-## 🔐 License
+## 🔒 Security
+- **Trivy Security Scan** (optional):  
+```bash
+trivy fs .
+```
+
+---
+
+## 📝 Roadmap
+- 🔐 Add authentication (JWT, sessions)
+- 🎨 Improve UI (e.g., Tailwind, Bootstrap)
+- 🧹 Add pagination for user lists
+- 📊 Improve test coverage
+- 🏢 Deploy to cloud (Heroku, Vercel)
+
+---
+
+## 🏅 Final Thoughts
+This project showcases a complete full-stack testing playground:
+✅ Solid architecture  
+✅ Robust CRUD APIs  
+✅ Reliable E2E tests with Playwright  
+✅ Swagger docs and code quality tools  
+
+---
+
+## 📜 License
 MIT

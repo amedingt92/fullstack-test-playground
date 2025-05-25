@@ -8,7 +8,7 @@ function validateUser(data) {
         }
         const nameRegex = /^[a-zA-Z\s\-']+$/; // Fixed regex
         if (!nameRegex.test(data.name)) {
-            errors.push('Name contains invalid characters');
+            errors.push("Name contains invalid characters. Only letters, spaces, hyphens (-), and apostrophes (') are allowed.");
         }
     }
 

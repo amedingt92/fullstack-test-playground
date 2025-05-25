@@ -41,7 +41,7 @@ describe('User Validation', () => {
         const data = { name: 'John123', email: 'test@example.com' };
         const result = validateUser(data);
         expect(result.isValid).toBe(false);
-        expect(result.errors).toContain('Name contains invalid characters');
+        expect(result.errors).toContain("Name contains invalid characters. Only letters, spaces, hyphens (-), and apostrophes (') are allowed.");
     });
 
     it('should fail when email exceeds max length', () => {

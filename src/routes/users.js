@@ -18,7 +18,7 @@ const knex = require("knex")(require("../../knexfile").development);
  *           description: Unique identifier for the user.
  *         name:
  *           type: string
- *           description: Full name of the user.
+ *           description: Full name of the user. Only letters, spaces, hyphens (-), and apostrophes (') are allowed.
  *           maxLength: 100
  *         email:
  *           type: string
@@ -119,11 +119,25 @@ router.get("/", async (req, res) => {
  *               $ref: '#/components/schemas/ErrorResponse'
  *             examples:
  *               missingFields:
+ *                 summary: Missing Name or Email
  *                 value:
  *                   error: "Name and email are required"
  *               invalidEmail:
+ *                 summary: Invalid email format
  *                 value:
  *                   error: "Invalid email format"
+ *               invalidNameChars: 
+ *                  summary: Name contains invalid characters
+ *                  value:
+ *                      error: "Name contains invalid characters. Only letters, spaces, hyphens (-), and apostrophes (') are allowed."
+ *               nameTooLong:
+ *                  summary: Name exceeds max length
+ *                  value:
+ *                      error: "Name must be 100 characters or less"
+ *               emailTooLong:
+ *                  summary: Email exceeds max length
+ *                  value:
+ *                      error: "Email must be 100 characters or less"
  *       409:
  *         description: Conflict - Email already exists.
  *         content:
@@ -246,6 +260,7 @@ router.get("/:id", async (req, res) => {
  *               name:
  *                 type: string
  *                 maxLength: 100
+ *                 description: Full name of the user. Only letters, spaces, hyphens (-), and apostrophes (') are allowed.
  *               email:
  *                 type: string
  *                 format: email
@@ -292,6 +307,18 @@ router.get("/:id", async (req, res) => {
  *                 summary: Invalid email format
  *                 value:
  *                   error: "Invalid email format"
+ *               invalidNameChars:
+ *                  summary: Name contains invalid characters
+ *                  value:
+ *                      error: "Name contains invalid characters. Only letters, spaces, hyphens (-), and apostrophes (') are allowed."
+ *               nameTooLong:
+ *                  summary: Name exceeds max length
+ *                  value:
+ *                      error: "Name must be 100 characters or less"
+ *               emailTooLong:
+ *                  summary: Email exceeds max length
+ *                  value:
+ *                      error: "Email must be 100 characters or less"
  *       404:
  *         description: User not found.
  *         content:

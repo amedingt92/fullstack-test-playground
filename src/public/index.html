@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Users</h1>
+    <nav>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </nav>
+
+    <form id="addUserForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <button type="submit" id="addUserBtn">Add User</button>
+    </form>
+
+    <ul id="userList">
+        <!-- Example list item with edit/delete -->
+        <!-- <li data-id="1">John Doe (john@example.com) <button class="editBtn">Edit</button> <button class="deleteBtn">Delete</button></li> -->
+    </ul>
+
+    <script>
+        const userList = document.getElementById('userList');
+        const form = document.getElementById('addUserForm');
+
+        async function fetchUsers() {
+            const res = await fetch('/api/users');
+            const users = await res.json();
+            userList.innerHTML = '';
+            users.forEach(user => {
+                const li = document.createElement('li');
+                li.dataset.id = user.id;
+                li.textContent = `${user.name} (${user.email}) `;
+
+                const editBtn = document.createElement('button');
+                editBtn.textContent = 'Edit';
+                editBtn.onclick = () => editUser(user.id);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.onclick = () => deleteUser(user.id);
+
+                li.appendChild(editBtn);
+                li.appendChild(deleteBtn);
+
+                userList.appendChild(li);
+            });
+        }
+
+        async function addUser(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            const res = await fetch('/api/users', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email })
+            });
+
+            if (res.ok) {
+                fetchUsers();
+                form.reset();
+            } else {
+                alert('Failed to add user');
+            }
+        }
+
+        async function editUser(id) {
+            const newName = prompt('Enter new name:');
+            const newEmail = prompt('Enter new email:');
+            if (!newName || !newEmail) return alert('Invalid input');
+
+            const res = await fetch(`/api/users/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: newName, email: newEmail })
+            });
+
+            if (res.ok) fetchUsers();
+            else alert('Failed to edit user');
+        }
+
+        async function deleteUser(id) {
+            const res = await fetch(`/api/users/${id}`, { method: 'DELETE' });
+            if (res.ok) fetchUsers();
+            else alert('Failed to delete user');
+        }
+
+        form.addEventListener('submit', addUser);
+        fetchUsers();
+    </script>
+</body>
+
+</html>

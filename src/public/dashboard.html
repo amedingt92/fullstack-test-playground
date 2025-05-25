@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - User Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>User Management Dashboard</h1>
+        <button onclick="logout()" class="logout-btn">Logout</button>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/dashboard.html" class="active">Dashboard</a></li>
+            <li><a href="/login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="user-management">
+            <h2>Users</h2>
+            <ul id="userList" class="user-list">
+                <!-- Dynamically populated user list -->
+            </ul>
+
+            <h3>Add New User</h3>
+            <form id="addUserForm">
+                <input type="text" id="name" placeholder="Enter full name" required>
+                <input type="email" id="email" placeholder="Enter email address" required>
+                <button type="submit" id="addUserBtn">Add User</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="js/users.js"></script>
+    <script>
+        if (localStorage.getItem('auth') !== 'true') {
+            window.location.href = '/login.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('auth');
+            window.location.href = '/login.html';
+        }
+    </script>
+</body>
+
+</html>

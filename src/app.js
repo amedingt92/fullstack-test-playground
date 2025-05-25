@@ -1,19 +1,20 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const helloRoutes = require("./routes");
 const userRoutes = require("./routes/users");
 const setupSwagger = require("./swagger");
-const knex = require('../db/db'); // correct path from src/app.js
-
 
 app.use(express.json());
 app.use("/api", helloRoutes);
 app.use("/api/users", userRoutes);
 setupSwagger(app);
 
-app.get("/", (req, res) => {
-    res.redirect("/api-docs");
-});
+// Serve static files from /public
+app.use(express.static(path.join(__dirname, 'public')));  // Remove the ../
 
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));  // Remove the ../
+});
 
 module.exports = app;

@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "lint": "eslint .",
     "e2e": "npx playwright test",
     "scan": "trivy fs --scanners vuln ./"

@@ -1,7 +1,8 @@
 
 const express = require("express");
 const router = express.Router();
-const knex = require("knex")(require("../../knexfile").development);
+const knex = require('../../db/db');  // shared Knex instance
+
 
 /**
  * @swagger

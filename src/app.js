@@ -3,6 +3,8 @@ const app = express();
 const helloRoutes = require("./routes");
 const userRoutes = require("./routes/users");
 const setupSwagger = require("./swagger");
+const knex = require('../db/db'); // correct path from src/app.js
+
 
 app.use(express.json());
 app.use("/api", helloRoutes);

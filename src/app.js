@@ -9,4 +9,9 @@ app.use("/api", helloRoutes);
 app.use("/api/users", userRoutes);
 setupSwagger(app);
 
+app.get("/", (req, res) => {
+    res.redirect("/api-docs");
+});
+
+
 module.exports = app;
